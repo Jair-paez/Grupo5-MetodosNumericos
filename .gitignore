@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+ENV/
+
+# Large raw dataset files (prevent uploading folders > 100MB to GitHub)
+01_Datos/Datos crudos/
+01_Datos/Datos crudos
+**/Datos crudos/**
+**/Datos crudos
+
+# Local system / OneDrive / Office
+.DS_Store
+Thumbs.db
+~$*
