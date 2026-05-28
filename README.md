@@ -17,24 +17,21 @@
 
 Este proyecto de investigacion academica tiene como objetivo aplicar herramientas de analisis numerico para comprender la dinamica de exito de los videojuegos distribuidos en la plataforma Steam.
 
-Para que el modelo matematico sea riguroso y tenga coherencia real, nos enfocaremos en un esquema multivariable libre de dependencias lineales y multicolinealidad, garantizando la inversion optima de matrices en el ajuste de curvas por minimos cuadrados. El modelo consta de exactamente una variable objetivo y diez variables independientes.
+Para que el modelo matematico sea riguroso y tenga coherencia real, nos enfocaremos en un esquema multivariable libre de dependencias lineales y multicolinealidad, garantizando la inversion optima de matrices en el ajuste de curvas por minimos cuadrados. El modelo consta de exactamente una variable objetivo y siete variables independientes.
 
 ### Variable Objetivo Eje Y
 
-* estimated_owners: Ventas estimadas continuas obtenidas mediante el punto medio aritmetico del rango de compradores.
+* estimated_owners: Ventas estimadas continuas obtenidas mediante el punto medio aritmetico del rango de compradores (Punto medio del rango de owners_range).
 
-### Las Diez Variables Predictoras Independientes Eje X
+### Las Siete Variables Predictoras Independientes Eje X
 
-1. price_usd: Precio de venta actual normalizado en dolares continuos.
-2. steamspy_initial_price: Precio de venta inicial del videojuego antes de aplicar descuentos.
-3. steamspy_discount: Porcentaje de descuento o rebaja activa en la tienda.
-4. approval_ratio: Proporcionalidad de aprobacion continua de los usuarios en una escala de cero a uno.
-5. reviews_total: Volumen total de opiniones y calificaciones registradas por la comunidad de Steam.
-6. concurrent_users_yesterday: Usuarios activos simultaneos registrados el dia anterior.
-7. is_free: Indicador binario discreto de gratuidad del producto donde uno es gratis y cero es de pago.
-8. language_count: Cantidad total de idiomas de localizacion en los que esta disponible el software.
-9. category_count: Cantidad total de caracteristicas tecnicas y modos de juego que ofrece el videojuego.
-10. release_year: Ano de lanzamiento numerico extraido de la fecha de publicacion oficial.
+1. price_usd: Precio de venta actual normalizado en dolares continuos (Calculado como steamspy_price / 100).
+2. is_free: Indicador binario discreto de gratuidad del producto donde uno es gratis y cero es de pago.
+3. approval_ratio: Proporcionalidad de aprobacion continua de los usuarios en una escala de cero a uno (Calculada como reviews_positive / reviews_total).
+4. reviews_total: Volumen total de opiniones y calificaciones registradas por la comunidad de Steam expresado en escala logaritmica de base 10 (log10(reviews_total + 1)).
+5. language_count: Cantidad total de idiomas de localizacion en los que esta disponible el software.
+6. category_count: Cantidad total de caracteristicas tecnicas y modos de juego que ofrece el videojuego.
+7. release_year: Ano de lanzamiento numerico extraido de la fecha de publicacion oficial (rango 1997 a 2024).
 
 ---
 
@@ -46,21 +43,20 @@ Para asegurar el orden, el rigor academico y la facilidad de revision, el proyec
 Proyecto/ - Raiz del repositorio
 ├── 01_Datos/
 │   ├── Datos crudos/
-│   │   └── steam-insights-main/
-│   │       ├── games/
-│   │       ├── reviews/
-│   │       └── steamspy_insights/
+│   │   └── steam-insights-main/ - Archivos crudos de Steam y SteamSpy
 │   ├── README.md - Diccionario de variables y especificaciones
-│   └── steam_raw_unified_all_columns.csv - Dataset unificado final
+│   ├── steam_raw_unified_all_columns.csv - Dataset unificado crudo final
+│   └── steam_cleaned_data.csv - Dataset limpio y normalizado por Z-Score (79,215 registros)
 ├── 02_Codigo/
 │   └── Codigo_Proyecto.ipynb - Jupyter Notebook principal secuencial
 ├── 03_Informe/
-│   ├── Proyecto1_Grupo5.docx - Documento de Word con el avance del informe
-│   └── Proyecto1_Grupo5_Respaldo.docx - Respaldo del documento original
+│   └── Proyecto1_Grupo5.docx - Documento de Word con el informe final del proyecto
 ├── 04_Presentacion/
-│   └── .gitkeep - Archivo de soporte para la carpeta de diapositivas
+│   ├── .gitkeep - Archivo de soporte para la carpeta de diapositivas
+│   └── Presentación Videojuegos Retro Geométrico Neón Azul y Magenta.pdf - Diapositivas de la defensa
 ├── 05_Referencias/
-│   ├── material_curso/ - Diapositivas de clase, silabo y examenes previos
+│   ├── material_curso/ - Diapositivas de clase, silabo y material didactico
+│   ├── articulos/ - Carpeta para articulos de investigacion adicionales (vacia)
 │   └── bibliografia.md - Referencias bibliograficas en formato APA
 ├── .gitignore - Control de exclusion de archivos grandes para GitHub
 ├── README.md - Este manual general del proyecto
@@ -73,6 +69,7 @@ Proyecto/ - Raiz del repositorio
 
    * Datos crudos/: Almacena los archivos originales sin procesar descargados de GitHub.
    * steam_raw_unified_all_columns.csv: Es el producto de la Parte 1 del codigo; un archivo plano consolidado con los datos unificados.
+   * steam_cleaned_data.csv: Dataset depurado, libre de nulos, filtrado y normalizado con Z-Score (79,215 filas).
    * README.md: Explica columna por columna que significa cada variable en el dataset unificado.
 2. 02_Codigo/
 
@@ -82,10 +79,10 @@ Proyecto/ - Raiz del repositorio
    * Almacena el reporte formal escrito bajo formato academico.
 4. 04_Presentacion/
 
-   * Guardara las diapositivas disenadas para la defensa oral del proyecto.
+   * Almacena las diapositivas diseñadas en PDF para la defensa oral del proyecto.
 5. 05_Referencias/
 
-   * Contiene el archivo bibliografia.md con fuentes bibliograficas.
+   * Contiene el archivo bibliografia.md con fuentes bibliograficas y material didactico.
 
 ---
 
