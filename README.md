@@ -1,6 +1,7 @@
 # Modelo para el Analisis de factores que influyen en la popularidad de los videojuegos
 
 ## Informacion Academica
+
 * Institucion: Escuela Politecnica Nacional EPN
 * Materia: Metodos Numericos
 * Semestre: 2026-A
@@ -13,14 +14,17 @@
 ---
 
 ## Descripcion del Proyecto
-Este proyecto de investigacion academica tiene como objetivo aplicar herramientas de analisis numerico y modelamiento matematico para comprender la dinamica de exito de los videojuegos distribuidos en la plataforma Steam.
 
-Para que el modelo matematico sea riguroso y tenga coherencia real, nos enfocaremos en un esquema multivariable libre de dependencias lineales y multicolinealidad, garantizando la inversion optima de matrices en el ajuste de curvas por minimos cuadrados. El modelo consta de exactamente una variable objetivo y diez variables independientes totalmente pobladas en nuestra base de datos.
+Este proyecto de investigacion academica tiene como objetivo aplicar herramientas de analisis numerico para comprender la dinamica de exito de los videojuegos distribuidos en la plataforma Steam.
+
+Para que el modelo matematico sea riguroso y tenga coherencia real, nos enfocaremos en un esquema multivariable libre de dependencias lineales y multicolinealidad, garantizando la inversion optima de matrices en el ajuste de curvas por minimos cuadrados. El modelo consta de exactamente una variable objetivo y diez variables independientes.
 
 ### Variable Objetivo Eje Y
+
 * estimated_owners: Ventas estimadas continuas obtenidas mediante el punto medio aritmetico del rango de compradores.
 
 ### Las Diez Variables Predictoras Independientes Eje X
+
 1. price_usd: Precio de venta actual normalizado en dolares continuos.
 2. steamspy_initial_price: Precio de venta inicial del videojuego antes de aplicar descuentos.
 3. steamspy_discount: Porcentaje de descuento o rebaja activa en la tienda.
@@ -35,6 +39,7 @@ Para que el modelo matematico sea riguroso y tenga coherencia real, nos enfocare
 ---
 
 ## Distribucion y Estructura Organizativa
+
 Para asegurar el orden, el rigor academico y la facilidad de revision, el proyecto esta estructurado bajo un esquema de carpetas numeradas. A continuacion se presenta el mapa visual de directorios:
 
 ```text
@@ -65,21 +70,22 @@ Proyecto/ - Raiz del repositorio
 ### Descripcion de las Carpetas
 
 1. 01_Datos/
+
    * Datos crudos/: Almacena los archivos originales sin procesar descargados de GitHub.
    * steam_raw_unified_all_columns.csv: Es el producto de la Parte 1 del codigo; un archivo plano consolidado con los datos unificados.
    * README.md: Explica columna por columna que significa cada variable en el dataset unificado.
-
 2. 02_Codigo/
+
    * Contiene Codigo_Proyecto.ipynb, el notebook de Jupyter estructurado secuencialmente que realiza la unificacion, limpieza y los calculos numericos del modelo.
-
 3. 03_Informe/
-   * Almacena el reporte formal escrito bajo formato cientifico academico. Contiene el archivo Proyecto1_Grupo5.docx con la tabla de variables y la descripcion alineada.
 
+   * Almacena el reporte formal escrito bajo formato academico.
 4. 04_Presentacion/
-   * Guardara las diapositivas disenadas para la defensa oral del proyecto.
 
+   * Guardara las diapositivas disenadas para la defensa oral del proyecto.
 5. 05_Referencias/
-   * Contiene el archivo bibliografia.md con fuentes bibliograficas configuradas en formato APA y la carpeta material_curso para archivar los PDFs de teoria y examenes de Metodos Numericos.
+
+   * Contiene el archivo bibliografia.md con fuentes bibliograficas.
 
 ---
 
@@ -88,14 +94,19 @@ Proyecto/ - Raiz del repositorio
 Este proyecto esta disenado para ser cien por ciento reproducible. Para ejecutar el codigo en cualquier computador, siga este procedimiento:
 
 ### 1. Instalar Dependencias
+
 Asegurese de instalar las librerias necesarias especificadas en el archivo de requisitos:
+
 ```bash
 pip install -r Requisitos.txt
 ```
 
 ### 2. Abrir Jupyter y Ejecutar el Notebook
+
 Inicie el servidor de Jupyter en la terminal y navegue hasta el codigo:
+
 ```bash
 jupyter notebook
 ```
+
 Abra el archivo 02_Codigo/Codigo_Proyecto.ipynb y ejecute el bloque secuencial de codigo para reconstruir la base de datos unificada en tiempo real.
