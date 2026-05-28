@@ -34,7 +34,6 @@ Para el modelamiento matematico, cuentas con las siguientes columnas agrupadas p
 * reviews_negative: Cantidad de resenas negativas escritas por usuarios.
 * reviews_total: Total de resenas acumuladas (reviews_positive + reviews_negative).
 * approval_ratio (Calculada Continuo): Relacion continua de aprobacion entre 0.0 y 1.0.
-    $$\text{approval\_ratio} = \frac{\text{reviews\_positive}}{\text{reviews\_total}}$$
 * metacritic_score: Puntuacion oficial de Metacritic (escala de 0 a 100).
 
 ### 3. Variables de Consumo y Popularidad (Ventas Estimadas)
