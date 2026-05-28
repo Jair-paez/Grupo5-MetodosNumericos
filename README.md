@@ -43,7 +43,10 @@ Para asegurar el orden, el rigor academico y la facilidad de revision, el proyec
 Proyecto/ - Raiz del repositorio
 ├── 01_Datos/
 │   ├── Datos crudos/
-│   │   └── steam-insights-main/ - Archivos crudos de Steam y SteamSpy
+│   │   └── steam-insights-main/
+│   │       └── cataegories/ categories.csv
+│   │       └── descriptions/ descriptions.csv
+│   │       └── ...
 │   ├── README.md - Diccionario de variables y especificaciones
 │   ├── steam_raw_unified_all_columns.csv - Dataset unificado crudo final
 │   └── steam_cleaned_data.csv - Dataset limpio y normalizado por Z-Score (79,215 registros)

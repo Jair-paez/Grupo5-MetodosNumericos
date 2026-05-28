@@ -4,9 +4,12 @@ Esta carpeta contiene las bases de datos unificadas para el proyecto de Métodos
 
 ## Archivos en esta carpeta
 
-1. steam_raw_unified_all_columns.csv
-   * Descripcion: Este es el dataset unificado completo, crudo y con todas las columnas cruzadas de games.csv, reviews.csv y steamspy_insights.csv (140,132 registros y 35 columnas).
-   * Proposito: Es la fuente de verdad del proyecto. Desde aqui se cargara y limpiara la informacion en tu codigo secuencial.
+* Para obtener los datos del dataset se debe descargar los archivos del siguiente repositorio:
+
+* https://github.com/NewbieIndieGameDev/steam-insights
+
+* Una vez descargadas los archivos .rar, se deben descomprimir en sus carpetas correspondientes y mantenmer el esquema indicado en el redme principal del repositorio.
+
 
 ---
 
