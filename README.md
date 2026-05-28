@@ -44,7 +44,7 @@ Proyecto/ - Raiz del repositorio
 ├── 01_Datos/
 │   ├── Datos crudos/
 │   │   └── steam-insights-main/
-│   │       └── cataegories/ categories.csv
+│   │       └── categories/ categories.csv
 │   │       └── descriptions/ descriptions.csv
 │   │       └── ...
 │   ├── README.md - Diccionario de variables y especificaciones
