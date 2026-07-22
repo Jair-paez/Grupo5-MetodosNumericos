@@ -1,0 +1,391 @@
+\documentclass[12pt]{report}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{cite}
+\usepackage{parskip}
+\usepackage{tocloft}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{url}
+\renewcommand{\cftsecfont}{\normalfont\MakeUppercase}
+\renewcommand{\cftsecpagefont}{\normalfont}
+\setlength{\cftsecindent}{20pt}
+
+\definecolor{highlight}{RGB}{255, 255, 0}
+\definecolor{azulito}{RGB}{85, 142, 213}
+
+\titleformat{\section}
+  {\normalfont\Large\bfseries\MakeUppercase}{}{0pt}{}
+
+\addto\captionsspanish{\renewcommand{\contentsname}{Contenido}}
+
+\renewcommand{\thesection}{}
+\renewcommand{\thesubsection}{}
+
+
+\begin{document}
+
+
+\thispagestyle{empty}
+\vspace*{2cm}
+\begin{center}
+    \noindent\rule{\textwidth}{0.4pt}\\[0.5cm]
+    {\Huge\bfseries MODELO PARA EL ANALISIS DE FACTORES QUE INFLUYEN EN LA POPULARIDAD DE LOS VIDEOJUEGOS}\\[0.5cm]
+    \noindent\rule{\textwidth}{0.4pt}\\[0.5cm]
+    {\large PROYECTO 01}\\[2cm]
+    \textbf{ASIGNATURA:} \hspace{1cm} MÉTODOS NÚMERICOS\\[0.2cm]
+    
+    \textbf{INTEGRANTES:} \hspace{1cm} RICARDO CISNEROS -- JAIR PAEZ -- HUGO COYAGO\\[2cm]
+    
+    \textbf{FECHA DE ENTREGA:} \hspace{0.5cm} 21/06/2026
+\end{center}
+\newpage
+
+
+\tableofcontents
+\thispagestyle{empty}
+\newpage
+
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+\section*{Objetivos} \addcontentsline{toc}{section}{OBJETIVOS}
+\begin{itemize}
+    \item Desarrollar un modelo numérico basado en datos de varios videojuegos de la plataforma Steam que permita analizar e identificar los factores que influyen en la popularidad de un videojuego, empleando métodos numéricos y técnicas de aproximación matemática sobre un conjunto masivo de datos, para determinar las variables que tienen un mayor impacto en la aceptación de un videojuego.
+\end{itemize}
+
+\section*{Marco Teórico}
+\addcontentsline{toc}{section}{MARCO TEÓRICO}
+
+\subsection*{Industria del videojuego}
+La industria del videojuego es uno de los sectores de entretenimiento y tecnología con mayor crecimiento a nivel mundial. Una de las mayores problemáticas de esta industria es la rentabilización de nuevos lanzamientos.
+
+Esta industria se basa en la venta de software y hardware relacionados a los videojuegos.
+
+\subsection*{Steam}
+Es una de las plataformas digitales de distribución de videojuegos más populares y aceptadas por la comunidad, se usara mundialmente para la compra, descarga y gestión de videojuegos para computadora. El mercado de videojuegos en plataformas digitales ha cambiado bastante con el tiempo. Según Chen (2024)\cite{chen2024analysis}, el éxito de un videojuego en Steam no depende de un solo factor como la calidad técnica o los gráficos, sino de la combinación de varios elementos como el género, la reputación del publicador y la opinión de los jugadores.
+
+Esta plataforma permite a desarrolladoras y empresas publicar videojuegos, mientras que los usuarios pueden adquirirlos, dejar reseñas, realizar recomendaciones y registrar estadísticas relacionadas con su actividad dentro de cada juego.
+
+\subsection*{Análisis de datos}
+El análisis de datos es el proceso de inspeccionar, organizar y estudiar información con el objetivo de identificar patrones, relaciones y tendencias relevantes.
+
+Esto facilita la interpretación de grandes volúmenes de información, permitiendo transformar datos crudos en información útil para la construcción de modelos matemáticos.
+
+\subsection*{Métodos numéricos}
+Son técnicas matemáticas utilizadas para aproximar soluciones a problemas que no pueden resolverse de forma exacta o directa. Estas técnicas se implementan mediante algoritmos computacionales capaces de trabajar con grandes cantidades de datos y realizar cálculos iterativos.
+
+Entre ellos se encuentran las técnicas de aproximación son procedimientos matemáticos utilizados para obtener valores cercanos o estimados de una función, conjunto de datos o problemas matemáticos.
+
+\subsection*{Librerías Python}
+Estas son conjunto de funciones, herramientas y módulos desarrollados con anterioridad que permiten realizar tareas especificas de manera mas sencilla y eficiente, evitando que se tengan que realizar desde cero.
+
+En el desarrollo del proyecto se espera utilizar las siguientes:
+
+\textbf{Pandas}: Es una librería orientada al análisis y manipulación de datos estructurados. Esta permite manipular tablas de datos, filtrar registros, transformar variables y organizar grandes volúmenes de datos. \cite{pandas_docs}
+
+\textbf{Numpy}: Es una librería especializada en el calculo numérico y en operaciones matemáticas de alto rendimiento. Esta permite trabajar con arreglos multidimensionales y ejecutar operaciones algebraicas y estadísticas. \cite{numpy_docs}
+
+\textbf{Matplotlib}: Es una Liberia de visualización grafica que permite generar gráficos y representaciones visuales de datos. \cite{matplotlib_docs}
+
+\subsection*{Métricas de evaluación}
+Las métricas de evaluación permiten medir la cercanía de las predicciones generadas por un modelo respecto a los valores reales observados. En el presente proyecto, las métricas utilizadas para la evaluación del modelo fueron:
+
+\textbf{Error absoluto medio o MAE}\\
+Este mide el promedio de las diferencias absolutas entre los valores reales y los valores predichos, es decir, indica que tanto se equivocó en promedio el modelo. Su ecuación se expresa de la siguiente forma:
+$$ MAE = \frac{1}{n} \sum |y_{real} - y_{aprox}| $$
+
+\textbf{Raíz del error cuadrático medio o RMSE}\\
+Al igual que MAE, mide el error promedio, pero castiga más los errores grandes ya que eleva los errores al cuadrado. Es decir que, si el modelo se equivoca demasiado en algunas predicciones el RMSE aumentara. 
+
+Su fórmula es la siguiente:
+$$ RMSE = \sqrt{\frac{1}{n} \sum (y_{real} - y_{aprox})^2} $$
+
+\textbf{Coeficiente de determinación o R2}\\
+Mide qué tanto del comportamiento de la variable objetivo puede explicar el modelo, su fórmula es la siguiente:
+$$ R^2 = 1 - \frac{\sum (y_{real} - y_{aprox})^2}{\sum (y_{real} - \bar{y})^2} $$
+
+Donde:
+$y_{real}$: representa los valores reales observados.\\
+$y_{aprox}$: representa los valores predichos o aproximados.\\
+$\bar{y}$: representa el promedio de los valores reales observados.\\
+
+Se interpreta de la siguiente forma:
+$R^2 = 1$: Indica que el modelo predice de forma perfecta.\\
+$R^2 = 0$: Indica que el modelo no mejora respecto a predecir siempre el promedio.\\
+$R^2 < 0$: Indica que el modelo es peor que usar simplemente el promedio.
+
+
+\section*{Prerrequisitos}
+\addcontentsline{toc}{section}{PRERREQUISITOS}
+Para el desarrollo del presente proyecto es necesario contar con los conocimientos previos relacionados con la programación, matemática y análisis de datos.
+
+Entre los principales prerrequisitos se encuentran:
+\begin{itemize}
+    \item Conocimientos medios de programación/Python.
+    \item Manejo de estructuras de datos.
+    \item Manipulación y lectura de archivos .CSV.
+    \item Conocimientos de algebra y cálculo.
+    \item Conocimientos básicos de estadísticas y análisis de datos.
+    \item Conocimientos en la materia de métodos numéricos.
+\end{itemize}
+
+Además, será necesario utilizar librerías y herramienta orientadas al análisis de datos y calculo numérico para facilitar la implementación de los métodos.
+
+Por ultimo se necesita acceso al dataset indicado y las capacidades computacionales y de procesamiento suficientes para trabajar con grandes cantidades de registros.
+
+
+\section*{Desarrollo}
+\addcontentsline{toc}{section}{DESARROLLO}
+
+\subsection*{Descripción del proyecto}
+El proyecto tiene la finalidad de permitir el análisis de distintos factores que influyen en la popularidad de los videojuegos lanzados en la plataforma steam. Para ello se utilizarán métodos numéricos y análisis de datos sobre una base de datos que contiene la información cruda relacionada con las características de los juegos, métricas de rating y datos del rendimiento comercial.
+
+La problemática a abordar es la de comprender que variables tienen un mayor impacto en la popularidad de un videojuego, medida tentativamente por el número de propietarios (ventas), descargas, reseñas y actividad media del usuario. Con esto se busca indicar los patrones de comportamiento y tendencias de aceptación en el mercado para la rentabilización de próximos lanzamientos.
+
+Mediante las técnicas de aproximación, interpolación y ajustes de curvas aprendidas a lo largo de este semestre se busca construir un modelo que permita analizar el comportamiento de las variables antes mencionadas y determinar su relevancia en el crecimiento de popularidad de un videojuego.
+
+\subsection*{Metas del proyecto}
+La principal meta del proyecto es lograr desarrollar un modelo numérico que permita estimar la influencia de diferentes variables sobre la popularidad de los videojuegos con cierto grado de precisión, creando funciones que permitan la limpieza y organización del dataset crudo para la posterior implementación de métodos numéricos y técnicas de aproximación.
+
+Como resultado final, se espera identificar relaciones entre las variables como reseñas, precios, tiempo de juego y recomendaciones, e indicar que factores contribuyen en mayor medida al incremento de propietarios (ventas) o usuarios medios de un videojuego.
+
+\subsection*{Descripción del Dataset}
+Para el desarrollo del proyecto se utilizará el dataset “Steam Catalog Insights (October 2024)"\cite{newbie_steam_insights}. Este dataset contiene información masiva relacionada con los videojuegos publicados en la plataforma Steam.
+
+Esta se encuentra organizada en múltiples tablas .CSV, las cuales son:
+\begin{itemize}
+    \item Games.csv: contiene información general de los videojuegos.
+    \item Reviews.csv: contiene las métricas de reseñas de los juegos.
+    \item Steamspy\_insights.csv: Contiene las estadísticas de ventas y media de tiempos de juego.
+    \item Genres.csv: contiene los géneros asociados a los juegos.
+    \item Tags.csv: contiene las etiquetas descriptivas de los juegos.
+    \item Categories.csv: contiene las categorías y características disponibles en steam (modo de juego, soportes, etc.).
+    \item Promotional.csv: contiene los links, imágenes y videos promocionales del juego.
+\end{itemize}
+
+El dataset crudo cuenta con más de 140 000 registros en la tabla de juegos, pero tras el proceso de unificación, integración y eliminación de datos nulos o inconsistentes, se obtuvo un conjunto de datos depurado de 79 215 registros únicos. Esta cantidad es adecuada para la alimentación del modelo (70\% de los datos para entrenamiento), la validación (15\% de los datos) y las pruebas finales (15\% de los datos).
+
+\subsection*{Variables a usar}
+Para el desarrollo del proyecto se seleccionarán variables individuales relacionadas con la popularidad, aceptación e interacción de los usuarios dentro de la plataforma. Esto para analizar de forma matemática la relación entre las características de un videojuego y su nivel de popularidad. La elección de variables como el precio, la cantidad de idiomas disponibles y el año de lanzamiento no es arbitraria. Grm y Šubelj (2021)\cite{grm2021predicting} demostraron que estas características del juego son factores relevantes para estimar tanto el número de jugadores activos como el volumen de ventas durante el ciclo de vida del videojuego.
+
+Las variables tentativas a usar son las siguientes:
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|p{3cm}|p{8cm}|p{3cm}|}
+\hline
+\textbf{Variable} & \textbf{Descripción} & \textbf{Presentación} \\ \hline
+estimated\_owners & Número estimado de propietarios del videojuego & float \\ \hline
+approval\_ratio & Proporción de aprobación calculada a partir de reseñas positivas y negativas & 0.0 a 1.0 \\ \hline
+is\_free & Indicador binario de si el videojuego es gratuito (1) o de pago (0) & Binario (1 gratis y 0 pago) \\ \hline
+reviews\_total & Volumen acumulado de críticas de la comunidad. & float \\ \hline
+price\_usd & Precio del videojuego en dólares normalizado en dólares continuos. & Centavos/100 \\ \hline
+category\_count & Muestra la Cantidad total de modos de juego y características técnicas que ofrece el videojuego. & float \\ \hline
+language\_count & Cantidad total de idiomas de locación y traducción disponibles en el videojuego. & float \\ \hline
+release\_year & Año cronológico del lanzamiento extraído de la fecha de publicación oficial. & 1997 a 2024 \\ \hline
+\end{tabular}
+\end{table}
+
+Estas variables fueron seleccionadas debido a que poseen una relación directa con el comportamiento de los usuarios y el desempeño de los videojuegos en la plataforma.
+Además de no generar ningún tipo de contratiempo. (colinealidad, muestras pequeñas y sesgos)
+
+Con estas variables se busca aplicar los métodos numéricos para identificar los factores de mayor influencia en la popularidad de un videojuego, además, al usar el total de reseñas y el porcentaje de aprobación de los usuarios como variables principales, en lugar de puntuaciones de críticos especializados, tiene respaldo en la literatura. Robinson (2020)\cite{robinson2020predicting} el cual mostró que las opiniones directas de los jugadores y la visibilidad dentro de la comunidad son métricas más representativas y estables para predecir ventas acumuladas que las evaluaciones tradicionales de prensa.
+
+\subsection*{Forma tentativa de resolución}
+\begin{itemize}
+    \item Creación, unificación y estructuración del dataset
+\end{itemize}
+Se construyó el dataset unificando, a partir de datos crudos de las tablas, el dataset base. Para ello se utilizaron los archivos games.csv, reviews.csv y steamspy\_insight.csv.
+
+En esta etapa se realizó la integración y organización de los datos utilizando el identificador único de cada videojuego (app\_id), consolidando toda la información en un solo conjunto de datos.
+
+Además, algunas variables categóricas fueron transformadas en variables numéricas continuas para facilitar la aplicación de métodos numéricos.
+Un ejemplo de esto es la proporción de aprobación de los usuarios (approval\_ratio), calculada a partir de las reseñas positivas (P) y negativas (N) mediante la fórmula:
+$$ Ar = \frac{P}{P + N} $$
+
+Donde:\\
+P es la cantidad de reseñas positivas.\\
+N es la cantidad de reseñas negativas.
+
+Como resultado de este proceso de unificación e integración, se obtuvo un conjunto de datos consolidado con un total de 79 215 registros únicos de videojuegos, cada uno caracterizado por las variables físicas descritas anteriormente.
+
+\begin{itemize}
+    \item Limpieza de datos y ajustes de curvas
+\end{itemize}
+En esta etapa se realizó la limpieza y adecuación del dataset, eliminando registros duplicados y descartando valores nulos o vacíos en las variables seleccionadas. Se establecieron rangos de validación estrictos (como precios no negativos, año de lanzamiento entre 1997 y 2024, proporción de aprobación en el intervalo [0.0, 1.0], y cantidad de propietarios mayor a cero) para asegurar la consistencia física de los datos.
+
+Además, se aplicaron procesos de normalización y escalamiento. Por lo tanto, tanto las variables independientes como la variable dependiente (estimated\_owners) fueron normalizadas mediante el método de puntuación estándar (Z-score) para evitar sesgos de escala durante la resolución del sistema numérico normal.
+
+\begin{itemize}
+    \item Análisis de datos
+\end{itemize}
+Una vez preparado el dataset, se realizó un análisis exploratorio para identificar patrones, tendencias y las posibles relaciones entre las variables seleccionadas.
+
+Para ello se construyeron tablas de resumen de datos e histogramas de frecuencia. Con el fin de encontrar datos atípicos y el comportamiento del dataset una vez limpiado y escalado.
+
+\begin{itemize}
+    \item Aplicación de ajustes de curvas y aproximaciones
+\end{itemize}
+Posteriormente se aplicaron técnicas de ajustes de curvas y aproximación para modelar el comportamiento de las variables del dataset.
+
+Se utilizó el método de mínimos cuadrados multivariable para construir una función de aproximación capaz de representar tendencias globales dentro de los datos.
+
+El modelo multivariable se representa de la siguiente forma:
+$$ y = a_0 + a_1x + a_2x^2 + \dots + a_nx^n $$
+
+Donde:\\
+y representa el valor normalizado del número de propietarios estimados (estimated\_owners\_normalized).\\
+x representa el vector de variables independientes normalizadas.\\
+$a\_n$ son los coeficientes del modelo de ajuste calculados.
+
+Cada coeficiente $a\_n$ representa la sensibilidad o magnitud del impacto de la respectiva variable independiente sobre la variable dependiente.
+
+\begin{itemize}
+    \item Barajeo y división del dataset (70-15-15)
+\end{itemize}
+Con el fin de validar el modelo de manera rigurosa, el conjunto de datos unificado de 79 215 registros fue barajado aleatoriamente utilizando una semilla de aleatorización (random\_state=87) para asegurar la reproducibilidad.
+
+Posteriormente, los datos se dividieron en tres subconjuntos disjuntos: 
+\begin{itemize}
+    \item Conjunto de entrenamiento (70\%, correspondiente a 55 450 registros).
+    \item Conjunto de validación (15\%, correspondiente a 11 882 registros).
+    \item Conjunto de prueba final (15\%, correspondiente a 11 883 registros).
+\end{itemize}
+
+A partir del conjunto de entrenamiento de 55 450 registros, se construyó el sistema de ecuaciones normales
+$$ Ac = b $$
+para resolver el vector de coeficientes
+$$ c = (a_0, a_1, a_2, \dots , a_7)^T $$
+
+En este sistema, la matriz de coeficientes 
+$$ A = X^T X $$
+es una matriz cuadrada y simétrica de tamaño 8 x 8, donde X es la matriz de diseño de dimensiones 55 450 x 8 (cuyo primer vector columna está constituido por unos para representar el intercepto y los siete vectores restantes corresponden a los valores normalizados de los predictores), 
+$$ b = X^T y $$
+es el vector columna de tamaño 8 resultante de multiplicar la transpuesta de la matriz de diseño por el vector objetivo y.
+
+\begin{itemize}
+    \item Implementación de solucionadores numéricos directos
+\end{itemize}
+La construcción del modelo normal dio como resultado un sistema de ecuaciones lineales
+$$ A c = b $$
+de dimensiones 8 x 8. Para resolver este sistema de manera exacta y con alta estabilidad numérica, se seleccionaron y aplicaron solucionadores de tipo directo, los cuales son el estándar matemático para la resolución precisa de ecuaciones normales de mínimos cuadrados de este tamaño.
+
+Para ello, se implementaron de forma nativa desde cero en Python dos solucionadores numéricos directos: el método de Eliminación Gaussiana con pivoteo parcial y sustitución hacia atrás, y el método de Descomposición LU (algoritmo de Doolittle). 
+
+Ambos solucionadores directos se codificaron paso a paso sin el uso de librerías estadísticas externas. Al ejecutar ambos métodos en el sistema normal, se obtuvieron exactamente los mismos valores para los coeficientes, confirmando la estabilidad y robustez de la resolución numérica de nuestro modelo.
+
+\begin{itemize}
+    \item Interpretación y evaluación de resultados 
+\end{itemize}
+Una vez resuelto el sistema normal con los algoritmos numéricos directos implementados en esta etapa del avance, se procedió a comparar los coeficientes obtenidos por ambos solucionadores y a realizar una interpretación preliminar sobre la influencia de las variables predictoras. Los coeficientes calculados se detallan en la Tabla 1:
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|p{3cm}|p{5cm}|p{3cm}|p{3.5cm}|}
+\hline
+\textbf{Coeficiente} & \textbf{Variable asociada} & \textbf{Eliminación Gaussiana} & \textbf{Descomposición LU} \\ \hline
+a\_0 & Intercepto (Término independiente) & 0.001622 & 0.001622 \\ \hline
+a\_1 & price\_usd\_normalized (Precio) & 0.013637 & 0.013637 \\ \hline
+a\_2 & is\_free\_normalized (Gratuito/Pago) & 0.014070 & 0.014070 \\ \hline
+a\_3 & approval\_ratio\_normalized (Aprobación) & 0.004908 & 0.004908 \\ \hline
+a\_4 & reviews\_total\_normalized (Total de reseñas) & 0.798873 & 0.798873 \\ \hline
+a\_5 & language\_count\_normalized (Idiomas) & 0.028020 & 0.028020 \\ \hline
+a\_6 & category\_count\_normalized (Categorías) & 0.024269 & 0.024269 \\ \hline
+a\_7 & release\_year\_normalized (Año lanzamiento) & -0.034036 & -0.034036 \\ \hline
+\end{tabular}
+\caption{Tabla de coeficientes calculados por los métodos de solución directa.}
+\end{table}
+
+\begin{itemize}
+    \item Análisis del impacto de las variables: 
+\end{itemize}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|l|l|l|}
+\hline
+\textbf{conjunto} & \textbf{mae} & \textbf{rmse} & \textbf{r2} \\ \hline
+validacion & 0.0673 & 0.3295 & 0.7843 \\ \hline
+\end{tabular}
+\end{table}
+
+A partir de los resultados de los coeficientes obtenidos, se observa que ambos solucionadores directos arrojan los mismos valores de solución, lo cual confirma que la resolución del sistema fue estable. Además, debido a que las variables fueron normalizadas mediante Z-score, los coeficientes pueden compararse entre sí para analizar la influencia relativa de cada variable dentro del modelo.
+
+El coeficiente con la mayor influencia positiva corresponde a a\_4 = 0.798873 (reviews\_total\_normalized), lo que indica que el volumen total de reseñas es la variable más determinante para predecir el número estimado de propietarios de un videojuego en la plataforma. Esto tiene sentido, ya que una mayor cantidad de reseñas suele estar relacionada con una mayor interacción de los usuarios y, por lo tanto, con una mayor popularidad del videojuego.
+
+En segundo lugar, se observa que language\_count\_normalized presenta un coeficiente positivo de a\_5 = 0.028020, mientras que category\_count\_normalized tiene un coeficiente de a\_6 = 0.024269. Estos valores indican que la cantidad de idiomas disponibles y la cantidad de categorías o características del videojuego también aportan de forma positiva a la popularidad de este.
+
+Las variables price\_usd\_normalized e is\_free\_normalized presentan coeficientes positivos de a\_1 = 0.013637 y a\_2 = 0.014070, respectivamente. Esto indica que, dentro del modelo, tanto el precio como la condición de gratuidad tienen cierta relación positiva con la popularidad estimada, aunque su impacto es bajo frente a otras variables. 
+
+De igual forma, approval\_ratio\_normalized obtuvo un coeficiente positivo de a\_3 = 0.004908, lo que sugiere que la proporción de aprobación de los usuarios aporta al modelo, pero con una influencia reducida.
+
+Por otro lado, release\_year\_normalized presenta un coeficiente negativo de a\_7 = -0.034036. Esto indica que, según el modelo, los videojuegos con mayor antigüedad en la plataforma tienden a presentar una mayor cantidad acumulada de propietarios en comparación con lanzamientos más recientes. Este comportamiento puede explicarse debido a que los juegos más antiguos han tenido más tiempo para acumular ventas, reseñas e interacción por parte de los usuarios.
+
+\begin{itemize}
+    \item Validación del modelo y métricas de Error
+\end{itemize}
+Una vez obtenidos los pesos de los coeficientes, se evaluó el rendimiento del modelo aplicando métricas de error sobre el subconjunto de validación (15\%). 
+
+Las métricas empleadas fueron el error absoluto medio (MAE), la raíz del error cuadrático medio (RMSE) y el coeficiente de determinación R².
+
+En el conjunto de validación se obtuvo un MAE de 0.067327, lo que indica que, en promedio, las predicciones del modelo presentan una desviación absoluta baja respecto a los valores reales normalizados de la variable objetivo. Esto permite observar que el modelo logra aproximar de forma adecuada una parte importante de los registros evaluados.
+
+Por otro lado, el RMSE obtenido fue de 0.329487. Este valor es mayor que el MAE ya que el RMSE penaliza con mayor intensidad los errores grandes. Sin embargo, al mantenerse en un valor relativamente bajo dentro de la escala normalizada, se puede interpretar que los errores más altos no afectan de forma excesiva el rendimiento general del modelo.
+
+Finalmente, el coeficiente de determinación R² obtuvo un valor de 0.784287. Este resultado indica que el modelo explica aproximadamente el 78.43\% de la variabilidad de la popularidad normalizada de los videojuegos dentro del conjunto de validación. Este valor indica que las variables seleccionadas tienen una relación importante con la variable objetivo y permiten construir una aproximación adecuada del comportamiento de la popularidad.
+
+En consecuencia, los resultados obtenidos en la validación indican que el modelo presenta un buen rendimiento general. Confirmando que las variables utilizadas aportan información relevante para estimar la popularidad de un videojuego dentro de la plataforma Steam.
+
+\begin{itemize}
+    \item Análisis de residuos y valores atípicos
+\end{itemize}
+Una vez evaluado el modelo, se realizó un análisis de residuos con el fin de observar la diferencia entre los valores reales y los valores predichos en el conjunto de validación. Estos permiten identificar si el modelo presenta errores sistemáticos o si existen registros donde la predicción se aleja de manera considerable del valor real (valores atípicos).
+
+En el resumen de residuos se obtuvo una media de -0.0074 y una mediana de -0.0132. Estos valores son cercanos a cero, lo que indica que el modelo no presenta un sesgo general fuerte hacia la sobreestimación o subestimación de la popularidad. Además, el error absoluto medio fue de 0.0673, lo que confirma que, para la mayoría de los registros evaluados, el modelo mantiene errores bajos.
+
+También se observan residuos extremos, con valores mínimos y máximos de -17.0461 y 17.4108, respectivamente. Estos valores muestran que existen algunos registros donde el modelo presenta errores altos.
+
+A partir del residuo estandarizado se detectaron 304 valores atípicos (0.38\% de los datos). Estos representan una proporción pequeña del conjunto de datos, ya que la mayor parte de los registros mantiene errores controlados. Los valores atípicos identificados corresponden principalmente a videojuegos con cantidades muy altas de propietarios o reseñas, lo cual indica que el modelo tiene mayor dificultad para representar títulos extremadamente populares.
+
+Este puede explicarse debido a que la popularidad de ciertos videojuegos no depende únicamente de las variables seleccionadas, sino también de factores externos como campañas de marketing, reconocimiento de franquicias, comunidad activa, actualizaciones constantes o fenómenos de viralidad.
+
+\begin{itemize}
+    \item Pruebas finales sobre los dataframes de prueba y de validación.
+\end{itemize}
+Al calcular las métricas tanto en el conjunto de validación (15\% de los datos) como en la prueba final utilizando el otro 15\% reservado estrictamente para testeo, el modelo logró un $R^2$ de 78.43\% y 76.95\% respectivamente. Esto demuestra que el modelo es capaz de generalizar de manera excelente y mantener un nivel de precisión estable frente a distintos conjuntos de datos nunca antes vistos en el entrenamiento.
+
+
+\section*{Conclusiones}
+\addcontentsline{toc}{section}{CONCLUSIONES}
+\begin{itemize}
+    \item El análisis de una cantidad grande datos permitirá identificar que la popularidad de un videojuego no está ligada a solo un factor, sino de la combinación de múltiples variables relacionadas con la aceptación de los usuarios, el tiempo de juego, las reseñas y el desempeño en el mercado.
+    \item El uso de técnicas de limpieza, integración y transformación de datos ayuda a trabajar de manera eficaz los grandes volúmenes de datos provenientes de distintos archivos .csv, facilitando la creación de un dataset adecuado a las necesidades de nuestro modelo.
+    \item La ejecución de ajustes de curvas, interpolación y análisis estadístico ayudará a encontrar patrones de comportamiento en del mercado de videojuegos, permitiendo interpretar la aceptación y popularidad del videojuego.
+\end{itemize}
+
+\section*{Recomendaciones}
+\addcontentsline{toc}{section}{RECOMENDACIONES}
+\begin{itemize}
+    \item Usar datasets provenientes de fuentes confiables, de preferencia proporcionados por empresas de prestigio ya que se necesitan información útil para analizar el comportamiento ligado a la vida real.
+    \item Realizar una interpretación minuciosa antes de seleccionar las variables tentativas a usarse en el modelo, ya que es necesario debido al gran volumen de datos.
+    \item Utilizar herramientas y librerías especializadas de Python como Pandas, NumPy, Matplotlib para optimizar el procesamiento de datos, visualización y construcción del modelo.
+    \item Incluir en futuros trabajos variables adicionales como cantidad de jugadores activos, contenido descargable (DLC), presencia en redes sociales o soporte multijugador, ya que estos factores también pueden influir en la popularidad de un videojuego.
+\end{itemize}
+
+\vspace{0.5cm}
+
+%\newpage
+\renewcommand{\bibname}{\MakeUppercase{REFERENCIAS}}
+\bibliographystyle{IEEEtran}
+\addcontentsline{toc}{section}{REFERENCIAS}
+\bibliography{inFiles/References/references}
+
+\end{document}
