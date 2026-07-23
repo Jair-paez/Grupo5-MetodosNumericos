@@ -1,4 +1,4 @@
-# Modelo para el Analisis de factores que influyen en la popularidad de los videojuegos
+# Modelo para el Analisis de factores que influyen en la popularidad de los videojuegos 🎮📉
 
 ## Informacion Academica
 
@@ -15,9 +15,9 @@
 
 ## Descripcion del Proyecto
 
-Este proyecto de investigacion academica tiene como objetivo aplicar herramientas de analisis numerico para comprender la dinamica de exito de los videojuegos distribuidos en la plataforma Steam.
+Este proyecto aplica rigurosamente Métodos Numéricos desarrollados desde cero para predecir la cantidad de dueños (popularidad) que tendrá un videojuego en la plataforma Steam basándose en sus características comerciales (precio, reseñas, año de lanzamiento, etc.).
 
-Para que el modelo matematico sea riguroso y tenga coherencia real, nos enfocaremos en un esquema multivariable libre de dependencias lineales y multicolinealidad, garantizando la inversion optima de matrices en el ajuste de curvas por minimos cuadrados. El modelo consta de exactamente una variable objetivo y siete variables independientes.
+Para cumplir con las exigencias académicas, no se utilizaron librerías de Machine Learning (como scikit-learn o statsmodels). En su lugar, el problema de regresión multidimensional se estructuró matemáticamente a través de las Ecuaciones Normales de Mínimos Cuadradosy se resolvió construyendo algoritmos matriciales propios.
 
 ### Variable Objetivo Eje Y
 
